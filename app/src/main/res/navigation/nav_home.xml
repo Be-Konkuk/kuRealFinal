@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment_one"
-        android:name="com.omoolen.omooroid.home.fragments.one.OneHomeFragment"
+        android:name="com.konkuk.kureal.home.fragments.one.OneHomeFragment"
         android:label="fragment_one"
         tools:layout="@layout/fragment_home_one">
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_two"
-        android:name="com.omoolen.omooroid.home.fragments.two.TwoHomeFragment"
+        android:name="com.konkuk.kureal.home.fragments.two.TwoHomeFragment"
         android:label="fragment_two"
         tools:layout="@layout/fragment_home_two" >
         <action
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_three"
-        android:name="com.omoolen.omooroid.home.fragments.three.ThreeHomeFragment"
+        android:name="com.konkuk.kureal.home.fragments.three.ThreeHomeFragment"
         android:label="fragment_three"
         tools:layout="@layout/fragment_home_three" >
         <action
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_home_four"
-        android:name="com.omoolen.omooroid.home.fragments.four.FourHomeFragment"
+        android:name="com.konkuk.kureal.home.fragments.four.FourHomeFragment"
         android:label="fragment_home_four"
         tools:layout="@layout/fragment_home_four" >
         <action
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_home_five"
-        android:name="com.omoolen.omooroid.home.fragments.five.FiveHomeFragment"
+        android:name="com.konkuk.kureal.home.fragments.five.FiveHomeFragment"
         android:label="fragment_home_five"
         tools:layout="@layout/fragment_home_five" >
         <action

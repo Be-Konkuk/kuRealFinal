@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.omoolen.omooroid.home.fragments.one.OneHomeViewModel" />
+            type="com.konkuk.kureal.home.fragments.one.OneHomeViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

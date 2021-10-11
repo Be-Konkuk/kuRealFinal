@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.omoolen.omooroid.home.fragments.two.TwoHomeViewModel" />
+            type="com.konkuk.kureal.home.fragments.two.TwoHomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
