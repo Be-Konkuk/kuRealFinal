@@ -45,6 +45,4 @@ class OneHomeFragment : Fragment() {
             startActivity(intent)
         }
     }
-
-
 }

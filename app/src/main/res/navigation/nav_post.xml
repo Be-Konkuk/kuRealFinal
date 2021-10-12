@@ -11,7 +11,7 @@
         android:label="fragment_onboard_one"
         tools:layout="@layout/fragment_post_one" >
         <action
-            android:id="@+id/action_fragment_onboard_one_to_fragment_onboard_two"
+            android:id="@+id/action_fragment_post_one_to_fragment_post_two"
             app:destination="@id/fragment_post_two" />
     </fragment>
     <fragment
