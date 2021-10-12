@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.konkuk.kureal.onboarding.fragments.one.OneOnboardViewModel" />
+            type="com.konkuk.kureal.posting.fragments.one.OnePostViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Onboarding fragment !!one!!" />
+        android:text="Posting fragment !!one!!" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

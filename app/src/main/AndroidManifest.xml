@@ -14,7 +14,7 @@
         android:theme="@style/Theme.VirtualReality_SNS">
 
         <activity
-            android:name="com.konkuk.kureal.onboarding.OnboardActivity"
+            android:name="com.konkuk.kureal.posting.PostActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
                 <intent-filter>
                     <action android:name="android.intent.action.MAIN" />

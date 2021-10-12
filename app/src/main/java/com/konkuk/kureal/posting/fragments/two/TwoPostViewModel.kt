@@ -1,10 +1,10 @@
-package com.konkuk.kureal.onboarding.fragments.four
+package com.konkuk.kureal.posting.fragments.two
 
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 
-class FourOnboardViewModel(application: Application) : AndroidViewModel(application) {
+class TwoPostViewModel(application: Application) : AndroidViewModel(application) {
     @SuppressLint("StaticFieldLeak")
     private val mContext = getApplication<Application>().applicationContext
 

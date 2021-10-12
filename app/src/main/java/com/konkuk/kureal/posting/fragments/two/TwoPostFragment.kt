@@ -1,4 +1,4 @@
-package com.konkuk.kureal.onboarding.fragments.three
+package com.konkuk.kureal.posting.fragments.two
 
 import android.content.Context
 import android.os.Bundle
@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.konkuk.kureal.databinding.FragmentOnboardThreeBinding
+import com.konkuk.kureal.databinding.FragmentPostTwoBinding
 
 
-class ThreeOnboardFragment : Fragment() {
-    private var _binding: FragmentOnboardThreeBinding? = null
+class TwoPostFragment : Fragment() {
+    private var _binding: FragmentPostTwoBinding? = null
     private val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화되지 않았습니다.")
-    private val viewModel: ThreeOnboardViewModel by viewModels() //위임초기화
+    private val viewModel: TwoPostViewModel by viewModels() //위임초기화
     private lateinit var mContext: Context
 
 
@@ -22,7 +22,7 @@ class ThreeOnboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentOnboardThreeBinding.inflate(inflater, container, false)
+        _binding = FragmentPostTwoBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         mContext = requireContext()
 
