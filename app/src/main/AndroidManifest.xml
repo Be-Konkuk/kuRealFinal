@@ -13,23 +13,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VirtualReality_SNS">
 
-        <activity
-            android:name="com.konkuk.kureal.onboarding.OnboardActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.konkuk.kureal.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
 
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
+        <activity
+            android:name="com.konkuk.kureal.posting.PostActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+<!--                <intent-filter>-->
+<!--                    <action android:name="android.intent.action.MAIN" />-->
+
+<!--                    <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                </intent-filter>-->
         </activity>
 
 
         <activity android:name="com.konkuk.kureal.home.HomeActivity">
-<!--                        <intent-filter>-->
-<!--                            <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                        </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.konkuk.kureal.lookup.LookupActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <!--        푸시알림-->

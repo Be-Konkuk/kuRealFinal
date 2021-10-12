@@ -5,95 +5,9 @@
     android:id="@+id/nav_home"
     app:startDestination="@id/fragment_one">
 
-
     <fragment
         android:id="@+id/fragment_one"
         android:name="com.konkuk.kureal.home.fragments.one.OneHomeFragment"
         android:label="fragment_one"
-        tools:layout="@layout/fragment_home_one">
-        <action
-            android:id="@+id/action_fragment_one_to_fragment_two"
-            app:destination="@id/fragment_two" />
-        <action
-            android:id="@+id/action_fragment_one_to_fragment_three"
-            app:destination="@id/fragment_three" />
-        <action
-            android:id="@+id/action_fragment_one_to_fragment_home_four"
-            app:destination="@id/fragment_home_four" />
-        <action
-            android:id="@+id/action_fragment_one_to_fragment_home_five"
-            app:destination="@id/fragment_home_five" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragment_two"
-        android:name="com.konkuk.kureal.home.fragments.two.TwoHomeFragment"
-        android:label="fragment_two"
-        tools:layout="@layout/fragment_home_two" >
-        <action
-            android:id="@+id/action_fragment_two_to_fragment_one"
-            app:destination="@id/fragment_one" />
-        <action
-            android:id="@+id/action_fragment_two_to_fragment_three"
-            app:destination="@id/fragment_three" />
-        <action
-            android:id="@+id/action_fragment_two_to_fragment_home_four"
-            app:destination="@id/fragment_home_four" />
-        <action
-            android:id="@+id/action_fragment_two_to_fragment_home_five"
-            app:destination="@id/fragment_home_five" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragment_three"
-        android:name="com.konkuk.kureal.home.fragments.three.ThreeHomeFragment"
-        android:label="fragment_three"
-        tools:layout="@layout/fragment_home_three" >
-        <action
-            android:id="@+id/action_fragment_three_to_fragment_one"
-            app:destination="@id/fragment_one" />
-        <action
-            android:id="@+id/action_fragment_three_to_fragment_two"
-            app:destination="@id/fragment_two" />
-        <action
-            android:id="@+id/action_fragment_three_to_fragment_home_four"
-            app:destination="@id/fragment_home_four" />
-        <action
-            android:id="@+id/action_fragment_three_to_fragment_home_five"
-            app:destination="@id/fragment_home_five" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragment_home_four"
-        android:name="com.konkuk.kureal.home.fragments.four.FourHomeFragment"
-        android:label="fragment_home_four"
-        tools:layout="@layout/fragment_home_four" >
-        <action
-            android:id="@+id/action_fragment_home_four_to_fragment_one"
-            app:destination="@id/fragment_one" />
-        <action
-            android:id="@+id/action_fragment_home_four_to_fragment_two"
-            app:destination="@id/fragment_two" />
-        <action
-            android:id="@+id/action_fragment_home_four_to_fragment_three"
-            app:destination="@id/fragment_three" />
-        <action
-            android:id="@+id/action_fragment_home_four_to_fragment_home_five"
-            app:destination="@id/fragment_home_five" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragment_home_five"
-        android:name="com.konkuk.kureal.home.fragments.five.FiveHomeFragment"
-        android:label="fragment_home_five"
-        tools:layout="@layout/fragment_home_five" >
-        <action
-            android:id="@+id/action_fragment_home_five_to_fragment_one"
-            app:destination="@id/fragment_one" />
-        <action
-            android:id="@+id/action_fragment_home_five_to_fragment_two"
-            app:destination="@id/fragment_two" />
-        <action
-            android:id="@+id/action_fragment_home_five_to_fragment_three"
-            app:destination="@id/fragment_three" />
-        <action
-            android:id="@+id/action_fragment_home_five_to_fragment_home_four"
-            app:destination="@id/fragment_home_four" />
-    </fragment>
+        tools:layout="@layout/fragment_home_one"/>
 </navigation>
