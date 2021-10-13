@@ -29,6 +29,7 @@ import androidx.navigation.Navigation
 import com.konkuk.kureal.R
 import com.konkuk.kureal.databinding.FragmentPostOneBinding
 import com.konkuk.kureal.posting.fragments.Article
+import com.konkuk.kureal.posting.fragments.one.api.PostingData
 import com.konkuk.kureal.util.LocationHelper
 import com.konkuk.kureal.util.picture.GalleryHelper
 import com.konkuk.kureal.util.picture.PermissionHelper
@@ -52,7 +53,7 @@ class OnePostFragment : Fragment() {
 
     private val handler: Handler = Handler(Looper.getMainLooper()) //tmp
 
-    private lateinit var article: Article
+    private lateinit var article: PostingData
     private var latitude:Double = 0.0
     private var longitude:Double = 0.0
     private var photoURL:String = ""
@@ -101,7 +102,7 @@ class OnePostFragment : Fragment() {
             }
             else{
 
-                article = Article(0,getDate(),binding.etNickname.text.toString(),binding.etArticle.text.toString(),
+                article = PostingData(getDate(),binding.etNickname.text.toString(),binding.etArticle.text.toString(),
                     photoURL,binding.etTag.text.toString(),latitude,longitude)
                 articleReady = true
 
@@ -115,13 +116,14 @@ class OnePostFragment : Fragment() {
             gpsReady = false
             articleReady = false
 
-            article = Article(0,article.date,article.nickname,article.article,
+            article = PostingData(article.date,article.nickname,article.article,
                 article.photo,article.tag,article.latitude,article.longitude)
 
             Log.d("***POST_DATA",article.date+","+article.nickname+","+article.article+","+article.photo+","+article.tag+","+article.latitude+","+article.longitude)
             Toast.makeText(getContext(),article.date+","+article.nickname+","+article.article+","+article.photo+","+article.tag+","+article.latitude+","+article.longitude,Toast.LENGTH_LONG).show()
-            //TODO : 서버 연결
 
+            //TODO : 서버 연결
+            viewModel.posting(article)
         }
     }
 
