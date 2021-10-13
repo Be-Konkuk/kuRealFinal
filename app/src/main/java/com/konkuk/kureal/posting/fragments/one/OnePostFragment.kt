@@ -55,6 +55,7 @@ class OnePostFragment : Fragment() {
     private lateinit var article: Article
     private var latitude:Double = 0.0
     private var longitude:Double = 0.0
+    private var photoURL:String = ""
 
     private var gpsReady = false
     private var articleReady = false
@@ -82,50 +83,11 @@ class OnePostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //openCamera()
+        openCamera()
         clickPost() //공유 버튼 클릭
     }
 
-    /**
-     * 카메라 activity */
-    private fun openCamera(){
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(mContext.packageManager)?.also {
-                // 사진 파일을 만듭니다.
-                val photoFile = galleryHelper.photoFile
 
-                // photoUri를 보내는 코드
-                photoFile?.also {
-                    val photoURI: Uri = FileProvider.getUriForFile(
-                        mContext,
-                        "com.konkuk.kureal.fileprovider",
-                        it
-                    )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    cameraActivityLauncher.launch(takePictureIntent)
-                }
-            }
-        }
-    }
-
-    private val cameraActivityLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ){
-            result: ActivityResult ->
-        // TODO : 다른 FRAGMENT를 갔다가 들어오면 launch가 제대로 동작하지 않음
-        galleryHelper.galleryAddPic()
-
-        // imageview에 사진 띄우기
-        var file = File(galleryHelper.currentPhotoPath); //TODO : 이거를 서버에 보내야함
-        var bitmap = MediaStore.Images.Media
-                .getBitmap(mContext.contentResolver, Uri.fromFile(file));
-        if (bitmap != null) {
-            binding.ivPhoto.setImageBitmap(bitmap); //화면 썸네일에 그림 넣기
-        }
-
-        //s3로 전송, article.photo에 주소 넣기
-
-    }
 
     //공유 버튼 클릭
     private fun clickPost(){
@@ -138,7 +100,7 @@ class OnePostFragment : Fragment() {
                 Toast.makeText(getContext(),"글 내용 혹은 닉네임은 필수 입력 조건입니다.",Toast.LENGTH_LONG).show()
             }
             else{
-                val photoURL = "WWW.S3.어쩌구"
+
                 article = Article(0,getDate(),binding.etNickname.text.toString(),binding.etArticle.text.toString(),
                     photoURL,binding.etTag.text.toString(),latitude,longitude)
                 articleReady = true
@@ -186,6 +148,46 @@ class OnePostFragment : Fragment() {
         })
     }
 
+    /**
+     * 카메라 activity */
+    private fun openCamera(){
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(mContext.packageManager)?.also {
+                // 사진 파일을 만듭니다.
+                val photoFile = galleryHelper.photoFile
+
+                // photoUri를 보내는 코드
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        mContext,
+                        "com.konkuk.kureal.fileprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    cameraActivityLauncher.launch(takePictureIntent)
+                }
+            }
+        }
+    }
+
+    private val cameraActivityLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){
+            result: ActivityResult ->
+        // TODO : 다른 FRAGMENT를 갔다가 들어오면 launch가 제대로 동작하지 않음
+        galleryHelper.galleryAddPic()
+
+        // imageview에 사진 띄우기
+        var file = File(galleryHelper.currentPhotoPath); //TODO : 이거를 서버에 보내야함
+        var bitmap = MediaStore.Images.Media
+            .getBitmap(mContext.contentResolver, Uri.fromFile(file));
+        if (bitmap != null) {
+            binding.ivPhoto.setImageBitmap(bitmap); //화면 썸네일에 그림 넣기
+        }
+
+        //s3로 전송, article.photo에 주소 넣기
+        photoURL = viewModel.uploadWithTransferUtilty(file.getName(),file)
+    }
 
     /**
      * Permission 체크 */
