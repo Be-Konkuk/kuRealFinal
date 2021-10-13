@@ -30,6 +30,7 @@
             android:layout_marginLeft="10dp"/>
 
         <TextView
+            android:id="@+id/tv_post"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:text="공유"
