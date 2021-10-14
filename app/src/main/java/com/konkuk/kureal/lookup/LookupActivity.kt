@@ -16,10 +16,13 @@ class LookupActivity : AppCompatActivity(){
 
     private val fragmentLookupOne by lazy { OneLookupFragment() }
 
+    private var pk = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLookupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        getSafeArgs()
         initNavController()
     }
 
@@ -31,9 +34,22 @@ class LookupActivity : AppCompatActivity(){
 
     private fun changeFragment(fragment: Fragment) {
         Log.d("fragmentChanged", fragment.toString())
+        //pk 인자 넘기기 (activity -> fragment)
+        val bundle = Bundle()
+        bundle.putInt("pk",pk)
+        fragment.arguments = bundle
+
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.nav_host_lookup, fragment)
             .commit()
+    }
+
+    private fun getSafeArgs(){
+        if (intent.hasExtra("pk")) {
+            pk = intent.getIntExtra("pk",1)
+        } else {
+            Log.d("LOOKUPACTIVITY","intent 에러")
+        }
     }
 }
