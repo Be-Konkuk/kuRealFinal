@@ -120,7 +120,7 @@ class OnePostFragment : Fragment() {
                 article.photo,article.tag,article.latitude,article.longitude)
 
             Log.d("***POST_DATA",article.date+","+article.nickname+","+article.article+","+article.photo+","+article.tag+","+article.latitude+","+article.longitude)
-            Toast.makeText(getContext(),article.date+","+article.nickname+","+article.article+","+article.photo+","+article.tag+","+article.latitude+","+article.longitude,Toast.LENGTH_LONG).show()
+            //Toast.makeText(getContext(),article.date+","+article.nickname+","+article.article+","+article.photo+","+article.tag+","+article.latitude+","+article.longitude,Toast.LENGTH_LONG).show()
 
             //TODO : 서버 연결
             viewModel.posting(article)
