@@ -73,7 +73,7 @@ class OnePostViewModel(application: Application) : AndroidViewModel(application)
     fun posting(postingData: PostingData){ //서버연결
         Log.d("SERVER_ONBOARD4","포스트 시작")
         Log.d("***SERVER_DATA",postingData.date+","+postingData.nickname+","+postingData.article+","+postingData.photo+","+postingData.tag+","+postingData.latitude+","+postingData.longitude)
-        val call: Call<ResponsePostingData> = RetrofitClient.getApi.postPosting(postingData)
+        val call: Call<ResponsePostingData> = RetrofitClient.getApi.postArticle(postingData)
         call.enqueue(object : Callback<ResponsePostingData> {
             override fun onResponse(
                 call: Call<ResponsePostingData>,
