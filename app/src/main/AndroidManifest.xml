@@ -30,7 +30,8 @@
 
         <activity
             android:name="com.konkuk.kureal.posting.PostActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden">
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait">
 <!--                <intent-filter>-->
 <!--                    <action android:name="android.intent.action.MAIN" />-->
 
@@ -39,7 +40,9 @@
         </activity>
 
 
-        <activity android:name="com.konkuk.kureal.home.HomeActivity">
+        <activity android:name="com.konkuk.kureal.home.HomeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +50,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.konkuk.kureal.lookup.LookupActivity">
+        <activity android:name="com.konkuk.kureal.lookup.LookupActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 
