@@ -26,6 +26,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.konkuk.kureal.R
 import com.konkuk.kureal.databinding.FragmentPostOneBinding
 import com.konkuk.kureal.posting.fragments.Article
@@ -84,10 +85,15 @@ class OnePostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        init()
         openCamera()
         clickPost() //공유 버튼 클릭
     }
 
+    private fun init(){
+        //날짜 초기화
+        binding.tvDate.text = getDate()
+    }
 
 
     //공유 버튼 클릭
@@ -166,6 +172,7 @@ class OnePostFragment : Fragment() {
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    Glide.with(requireContext()).load(photoURI).into(binding.ivPhoto)
                     cameraActivityLauncher.launch(takePictureIntent)
                 }
             }
@@ -183,9 +190,9 @@ class OnePostFragment : Fragment() {
         var file = File(galleryHelper.currentPhotoPath); //TODO : 이거를 서버에 보내야함
         var bitmap = MediaStore.Images.Media
             .getBitmap(mContext.contentResolver, Uri.fromFile(file));
-        if (bitmap != null) {
-            binding.ivPhoto.setImageBitmap(bitmap); //화면 썸네일에 그림 넣기
-        }
+//        if (bitmap != null) {
+//            binding.ivPhoto.setImageBitmap(bitmap); //화면 썸네일에 그림 넣기
+//        }
 
         //s3로 전송, article.photo에 주소 넣기
         photoURL = viewModel.uploadWithTransferUtilty(file.getName(),file)

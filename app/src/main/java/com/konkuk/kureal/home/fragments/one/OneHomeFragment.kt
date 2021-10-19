@@ -38,7 +38,7 @@ class OneHomeFragment : Fragment() {
     fun btn_clicked(){
         binding.btnLookup.setOnClickListener { //글 조회 버튼 클릭
             val intent = Intent(context,LookupActivity::class.java)
-            intent.putExtra("pk",6) //TODO : pk값 변경하기
+            intent.putExtra("pk",8) //TODO : pk값 변경하기
             startActivity(intent)
         }
         binding.btnPost.setOnClickListener { //글 작성 버튼 클릭

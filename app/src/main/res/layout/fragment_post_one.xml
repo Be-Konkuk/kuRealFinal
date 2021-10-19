@@ -74,6 +74,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:gravity="center_vertical"
             android:layout_marginLeft="50dp"
+            android:layout_marginTop="15dp"
             android:text="2021.10.12"
             android:textSize="15sp"
             android:textStyle="bold"/>
@@ -96,7 +97,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
                 android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"/>
+                android:layout_marginEnd="50dp"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,15 +120,23 @@
                 app:layout_constraintStart_toStartOf="@id/et_article"
                 android:layout_marginStart="50dp"
                 android:text="닉네임"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:gravity="center_vertical"/>
 
             <EditText
                 android:id="@+id/et_nickname"
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:layout_height="50dp"
+                android:textSize="14sp"
+                android:paddingStart="13dp"
+                android:maxLength="10"
+                android:inputType="text"
+                android:maxLines="1"
                 app:layout_constraintTop_toBottomOf="@id/tv_nickname"
-                app:layout_constraintStart_toStartOf="@id/tv_nickname"/>
+                app:layout_constraintStart_toStartOf="@id/tv_nickname"
+                android:background="@drawable/style_edittext"
+                android:imeOptions="actionSearch" />
             <TextView
                 android:id="@+id/tv_nicknameSize"
                 android:layout_width="wrap_content"
@@ -139,13 +149,20 @@
             <EditText
                 android:id="@+id/et_article"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
+                android:textSize="13sp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="20dp"
+                android:gravity="top"
                 app:layout_constraintTop_toBottomOf="@id/tv_nicknameSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/style_edittext"
+                android:maxLength="150"
                 />
             <TextView
                 android:id="@+id/tv_articleSize"
