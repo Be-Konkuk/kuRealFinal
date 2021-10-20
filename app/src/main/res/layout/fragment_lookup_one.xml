@@ -75,7 +75,8 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="20dp"/>
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="35dp"/>
 
             <ImageView
                 android:id="@+id/iv_photo"
@@ -85,21 +86,29 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_nickname"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"/>
+
             <TextView
                 android:id="@+id/tv_article"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:text="오늘은 건국대학교에 왔다."
-                app:layout_constraintTop_toBottomOf="@id/iv_photo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="180dp"
                 android:layout_marginStart="35dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="35dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/style_edittext"
+                android:paddingStart="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_photo"
+                app:layout_constraintVertical_bias="0.09" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

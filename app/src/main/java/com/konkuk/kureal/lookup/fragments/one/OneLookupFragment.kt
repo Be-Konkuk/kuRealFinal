@@ -37,7 +37,15 @@ class OneLookupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
         observe()
+    }
+
+    private fun init(){
+        //back버튼 클릭시
+        binding.ivBack.setOnClickListener {
+            activity?.finish()
+        }
     }
 
     private fun observe(){

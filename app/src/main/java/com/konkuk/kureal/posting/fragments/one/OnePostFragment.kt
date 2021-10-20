@@ -2,17 +2,12 @@ package com.konkuk.kureal.posting.fragments.one
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
-import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
-import android.provider.MediaStore.Images.Media.getBitmap
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,14 +15,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.konkuk.kureal.R
 import com.konkuk.kureal.databinding.FragmentPostOneBinding
+import com.konkuk.kureal.home.HomeActivity
+import com.konkuk.kureal.posting.PostActivity
 import com.konkuk.kureal.posting.fragments.Article
 import com.konkuk.kureal.posting.fragments.one.api.PostingData
 import com.konkuk.kureal.util.LocationHelper
@@ -38,9 +33,10 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.konkuk.kureal.util.onBackPressedListener
 
 
-class OnePostFragment : Fragment() {
+class OnePostFragment : Fragment() ,onBackPressedListener{
     private var _binding: FragmentPostOneBinding? = null
     private val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화되지 않았습니다.")
     private val viewModel: OnePostViewModel by viewModels() //위임초기화
@@ -84,11 +80,20 @@ class OnePostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        init()
         openCamera()
         clickPost() //공유 버튼 클릭
     }
 
+    private fun init(){
+        //날짜 초기화
+        binding.tvDate.text = getDate()
 
+        //back버튼 클릭시
+        binding.ivBack.setOnClickListener {
+            activity?.finish()
+        }
+    }
 
     //공유 버튼 클릭
     private fun clickPost(){
@@ -120,7 +125,7 @@ class OnePostFragment : Fragment() {
                 article.photo,article.tag,article.latitude,article.longitude)
 
             Log.d("***POST_DATA",article.date+","+article.nickname+","+article.article+","+article.photo+","+article.tag+","+article.latitude+","+article.longitude)
-            Toast.makeText(getContext(),article.date+","+article.nickname+","+article.article+","+article.photo+","+article.tag+","+article.latitude+","+article.longitude,Toast.LENGTH_LONG).show()
+            //Toast.makeText(getContext(),article.date+","+article.nickname+","+article.article+","+article.photo+","+article.tag+","+article.latitude+","+article.longitude,Toast.LENGTH_LONG).show()
 
             //TODO : 서버 연결
             viewModel.posting(article)
@@ -166,6 +171,7 @@ class OnePostFragment : Fragment() {
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    Glide.with(requireContext()).load(photoURI).into(binding.ivPhoto)
                     cameraActivityLauncher.launch(takePictureIntent)
                 }
             }
@@ -183,9 +189,9 @@ class OnePostFragment : Fragment() {
         var file = File(galleryHelper.currentPhotoPath); //TODO : 이거를 서버에 보내야함
         var bitmap = MediaStore.Images.Media
             .getBitmap(mContext.contentResolver, Uri.fromFile(file));
-        if (bitmap != null) {
-            binding.ivPhoto.setImageBitmap(bitmap); //화면 썸네일에 그림 넣기
-        }
+//        if (bitmap != null) {
+//            binding.ivPhoto.setImageBitmap(bitmap); //화면 썸네일에 그림 넣기
+//        }
 
         //s3로 전송, article.photo에 주소 넣기
         photoURL = viewModel.uploadWithTransferUtilty(file.getName(),file)
@@ -216,6 +222,13 @@ class OnePostFragment : Fragment() {
         gpsReady = false
         articleReady = false
     }
-    
+
+    override fun onBackPressed() {
+        activity?.supportFragmentManager
+            ?.beginTransaction()
+            ?.remove(this)
+            ?.commit()
+    }
+
 
 }

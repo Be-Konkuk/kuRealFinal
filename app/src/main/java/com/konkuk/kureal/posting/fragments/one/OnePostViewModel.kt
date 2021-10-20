@@ -65,7 +65,7 @@ class OnePostViewModel(application: Application) : AndroidViewModel(application)
         })
 
         var s3URL = s3Client.getResourceUrl("kureal/photo",fileName)
-        Toast.makeText(mContext,s3URL, Toast.LENGTH_LONG).show()
+        //Toast.makeText(mContext,s3URL, Toast.LENGTH_LONG).show()
         Log.d("#####S3URL",s3URL)
         return s3URL
     }
