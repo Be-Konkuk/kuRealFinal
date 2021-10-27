@@ -14,7 +14,7 @@ import com.konkuk.kureal.lookup.LookupActivity
 import com.konkuk.kureal.posting.PostActivity
 
 
-class OneHomeFragment : Fragment() {
+class OneHomeFragment : Fragment()  {
     private val handler: Handler = Handler(Looper.getMainLooper())
     private var _binding: FragmentHomeOneBinding? = null
     private val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화되지 않았습니다.")
@@ -38,7 +38,7 @@ class OneHomeFragment : Fragment() {
     fun btn_clicked(){
         binding.btnLookup.setOnClickListener { //글 조회 버튼 클릭
             val intent = Intent(context,LookupActivity::class.java)
-            intent.putExtra("pk",8) //TODO : pk값 변경하기
+            intent.putExtra("pk",9) //TODO : pk값 변경하기
             startActivity(intent)
         }
         binding.btnPost.setOnClickListener { //글 작성 버튼 클릭
