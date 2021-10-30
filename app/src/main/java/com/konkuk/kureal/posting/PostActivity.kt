@@ -40,16 +40,16 @@ class PostActivity : AppCompatActivity(){
             .commit()
     }
 
-    override fun onBackPressed() {
-
-        //프래그먼트 onBackPressedListener사용
-        val fragmentList = supportFragmentManager.fragments
-        for (fragment in fragmentList) {
-            if (fragment is onBackPressedListener) {
-                startActivity(Intent(this, HomeActivity::class.java))
-                finish()
-            }
-        }
-    }
+//    override fun onBackPressed() {
+//
+//        //프래그먼트 onBackPressedListener사용
+//        val fragmentList = supportFragmentManager.fragments
+//        for (fragment in fragmentList) {
+//            if (fragment is onBackPressedListener) {
+//                startActivity(Intent(this, HomeActivity::class.java))
+//                finish()
+//            }
+//        }
+//    }
 
 }
