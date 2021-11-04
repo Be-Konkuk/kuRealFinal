@@ -16,8 +16,12 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.amazonaws.mobileconnectors.s3.transferutility.*
 import com.konkuk.kureal.databinding.ActivityHomeBinding
+import com.konkuk.kureal.home.article.ArticleAdapter
+import com.konkuk.kureal.home.article.ArticleInfo
 import com.konkuk.kureal.lookup.LookupActivity
 import com.konkuk.kureal.posting.PostActivity
 import org.opencv.android.*
@@ -34,6 +38,8 @@ class HomeActivity : AppCompatActivity() , CvCameraViewListener2{
     private var _binding: ActivityHomeBinding? = null
     private val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화되지 않았습니다.")
     private val viewModel: HomeViewModel by viewModels()
+    private lateinit var myAdapter:ArticleAdapter
+    private lateinit var mLayoutManager: RecyclerView.LayoutManager
 
     private var matInput: Mat? = null
     private var mOpenCvCameraView: CameraBridgeViewBase? = null
@@ -75,14 +81,37 @@ class HomeActivity : AppCompatActivity() , CvCameraViewListener2{
         mOpenCvCameraView!!.setCvCameraViewListener(this)
         mOpenCvCameraView!!.setCameraIndex(0) // front-camera(1),  back-camera(0)
 
+        recyclerInit()
         btnClicked()
         //divideVideo()
+    }
+
+    fun recyclerInit() {
+        myAdapter = ArticleAdapter()
+        binding.rvArticle.adapter = myAdapter
+        mLayoutManager = LinearLayoutManager(this)
+        binding.rvArticle.layoutManager = mLayoutManager
+
+        myAdapter.articleList.addAll(
+            listOf<ArticleInfo>(
+                ArticleInfo(
+                    date = "21.11.02",
+                    nickname = "jionee",
+                    article = "오늘은 새천년관에 왔다!! 오랜만에 학교를 와서 기분이 좋다~"
+                ),
+                ArticleInfo(
+                    date = "21.11.02",
+                    nickname = "jionee",
+                    article = "오늘은 법학관 왔다!! 이따가 왕소구이 먹어야지~! 후후후후"
+                ),
+            )
+        )
     }
 
     protected fun btnClicked(){
         binding.btnLookup.setOnClickListener { //글 조회 버튼 클릭
             val intent = Intent(this, LookupActivity::class.java)
-            intent.putExtra("pk",8) //TODO : pk값 변경하기
+            intent.putExtra("pk",13) //TODO : pk값 변경하기
             startActivity(intent)
         }
         binding.btnPost.setOnClickListener { //글 작성 버튼 클릭

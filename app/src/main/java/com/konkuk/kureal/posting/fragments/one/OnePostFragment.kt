@@ -106,7 +106,7 @@ class OnePostFragment : Fragment() ,onBackPressedListener{
                 Toast.makeText(getContext(),"글 내용 혹은 닉네임은 필수 입력 조건입니다.",Toast.LENGTH_LONG).show()
             }
             else{
-
+                Toast.makeText(getContext(),"포스팅 완료",Toast.LENGTH_LONG).show()
                 article = PostingData(getDate(),binding.etNickname.text.toString(),binding.etArticle.text.toString(),
                     photoURL,binding.etTag.text.toString(),latitude,longitude)
                 articleReady = true
@@ -117,7 +117,8 @@ class OnePostFragment : Fragment() ,onBackPressedListener{
     }
 
     private fun sendToServer(){
-        if (gpsReady && articleReady){ //gps, article다 준비됐을 때 서버에 전송
+        if (articleReady){ //gps, article다 준비됐을 때 서버에 전송
+        //if (gpsReady && articleReady){ //gps, article다 준비됐을 때 서버에 전송
             gpsReady = false
             articleReady = false
 
