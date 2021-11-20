@@ -1,5 +1,6 @@
 package com.konkuk.kureal.home
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.graphics.Bitmap
 import android.util.Log
@@ -15,12 +16,20 @@ import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3Client
 import com.konkuk.kureal.BuildConfig
+import com.konkuk.kureal.home.api.Data
+import com.konkuk.kureal.home.article.ArticleInfo
+import com.konkuk.kureal.posting.fragments.Article
+import com.konkuk.kureal.util.ListLiveData
+import com.konkuk.kureal.util.api.RetrofitClient
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
+    val articleList = ListLiveData<ArticleInfo>()
     private val mContext = getApplication<Application>().applicationContext
     /**
      * S3에 사진 업로드하기
@@ -35,7 +44,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             TransferUtility.builder().s3Client(s3Client).context(mContext).build()
         TransferNetworkLossHandler.getInstance(mContext)
         val uploadObserver = transferUtility.upload(
-            "kureal/division",
+            "kureal/photo",
             fileName,
             file
         ) // (bucket api, file이름, file객체)
@@ -64,5 +73,19 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         return s3URL
     }
 
-
+    @SuppressLint("CheckResult")
+    fun getHomeArticle(s3Url:String){ //서버연결
+        Log.d("SERVER_HOME","포스트 시작")
+        RetrofitClient.getApi.getHomeArticle(s3Url)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({items ->
+                articleList.clear()
+                items.data.forEach {
+                    articleList.add(ArticleInfo(it.date,it.nickname,it.article,it.pk))
+                }
+            },{e ->
+                println(e.toString())
+            })
+    }
 }
