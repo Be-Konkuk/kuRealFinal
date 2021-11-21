@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Surface
 import android.view.SurfaceView
+import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -82,37 +83,65 @@ class HomeActivity : AppCompatActivity() , CvCameraViewListener2{
         mOpenCvCameraView!!.setCameraIndex(0) // front-camera(1),  back-camera(0)
 
         recyclerInit()
+        setData()
         btnClicked()
         //divideVideo()
     }
 
     fun recyclerInit() {
         myAdapter = ArticleAdapter()
+        myAdapter.setItemClickListener(object : ArticleAdapter.OnItemClickListener {
+            override fun onClick(v: View, position:Int){
+                Log.d("HOME","글 조회"+myAdapter.articleList[position].pk)
+                val intent = Intent(applicationContext, LookupActivity::class.java)
+                intent.putExtra("pk",myAdapter.articleList[position].pk) //TODO : pk값 변경하기
+                startActivity(intent)
+            }
+        })
         binding.rvArticle.adapter = myAdapter
         mLayoutManager = LinearLayoutManager(this)
         binding.rvArticle.layoutManager = mLayoutManager
 
-        myAdapter.articleList.addAll(
-            listOf<ArticleInfo>(
-                ArticleInfo(
-                    date = "21.11.02",
-                    nickname = "jionee",
-                    article = "오늘은 새천년관에 왔다!! 오랜만에 학교를 와서 기분이 좋다~"
-                ),
-                ArticleInfo(
-                    date = "21.11.02",
-                    nickname = "jionee",
-                    article = "오늘은 법학관 왔다!! 이따가 왕소구이 먹어야지~! 후후후후"
-                ),
-            )
-        )
+//        myAdapter.articleList.addAll(
+//            listOf<ArticleInfo>(
+//                ArticleInfo(
+//                    date = "21.11.02",
+//                    nickname = "jionee",
+//                    article = "오늘은 새천년관에 왔다!! 오랜만에 학교를 와서 기분이 좋다~"
+//                ),
+//                ArticleInfo(
+//                    date = "21.11.02",
+//                    nickname = "jionee",
+//                    article = "오늘은 법학관 왔다!! 이따가 왕소구이 먹어야지~! 후후후후"
+//                ),
+//            )
+//        )
+
+
+    }
+
+    fun setData(){
+        //TODO : s3주소 실시간으로 넣기
+        viewModel.getHomeArticle("https://s3.ap-northeast-2.amazonaws.com/kureal/photo/JPEG_20211014_113822_6724216538930263291.jpg")
+        //observe
+        viewModel.articleList.observe(this, {
+            println("recycler****")
+            myAdapter.articleList.clear()
+            if (it.size > 0){
+                println(it[0].article)
+            }
+            myAdapter.articleList.addAll(it)
+            myAdapter.notifyDataSetChanged()
+        })
     }
 
     protected fun btnClicked(){
         binding.btnLookup.setOnClickListener { //글 조회 버튼 클릭
-            val intent = Intent(this, LookupActivity::class.java)
-            intent.putExtra("pk",13) //TODO : pk값 변경하기
-            startActivity(intent)
+            var s3Url = saveVideoToS3()
+            viewModel.getHomeArticle(s3Url)
+//            val intent = Intent(this, LookupActivity::class.java)
+//            intent.putExtra("pk",1) //TODO : pk값 변경하기
+//            startActivity(intent)
         }
         binding.btnPost.setOnClickListener { //글 작성 버튼 클릭
             val intent = Intent(this, PostActivity::class.java)
@@ -144,27 +173,34 @@ class HomeActivity : AppCompatActivity() , CvCameraViewListener2{
         val timer = Timer()
         val timerTask: TimerTask = object : TimerTask() {
             override fun run() { // 코드 작성
-                if (matInput!=null) {
-                    //mat to bitmap
-                    val bitmap = matInput?.cols()?.let {
-                        Bitmap.createBitmap(
-                            it,
-                            matInput?.rows()!!,
-                            Bitmap.Config.ARGB_8888
-                        )
-                    }
-                    Utils.matToBitmap(matInput, bitmap)
-                    //bitmap to file
-                    if (bitmap != null) {
-                        saveBitmapToJpeg(bitmap, "tmpBitmap")
-                    }
-                    //s3 file send
-                    val sendFile = File("$cacheDir/tmpBitmap.jpg")
-                    viewModel.uploadWithTransferUtilty("5test" + System.currentTimeMillis(), sendFile)
-                }
+                var s3Url = saveVideoToS3()
+                viewModel.getHomeArticle(s3Url)
             }
         }
         timer.schedule(timerTask, 0, 1000)
+    }
+
+    private fun saveVideoToS3():String{
+        var s3Url = ""
+        if (matInput!=null) {
+            //mat to bitmap
+            val bitmap = matInput?.cols()?.let {
+                Bitmap.createBitmap(
+                    it,
+                    matInput?.rows()!!,
+                    Bitmap.Config.ARGB_8888
+                )
+            }
+            Utils.matToBitmap(matInput, bitmap)
+            //bitmap to file
+            if (bitmap != null) {
+                saveBitmapToJpeg(bitmap, "tmpBitmap")
+            }
+            //s3 file send
+            val sendFile = File("$cacheDir/tmpBitmap.jpg")
+            s3Url = viewModel.uploadWithTransferUtilty("home" + System.currentTimeMillis()+".jpg", sendFile)
+        }
+        return s3Url;
     }
 
     private fun saveBitmapToJpeg(bitmap: Bitmap, name: String): File? {

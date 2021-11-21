@@ -72,7 +72,7 @@ class OnePostFragment : Fragment() ,onBackPressedListener{
 
         goCheckPermissions()
         getLocation() //위도,경도 값 설정
-
+        openCamera()
         return binding.root
     }
 
@@ -81,7 +81,7 @@ class OnePostFragment : Fragment() ,onBackPressedListener{
         super.onViewCreated(view, savedInstanceState)
 
         init()
-        openCamera()
+
         clickPost() //공유 버튼 클릭
     }
 
@@ -118,7 +118,7 @@ class OnePostFragment : Fragment() ,onBackPressedListener{
 
     private fun sendToServer(){
         if (articleReady){ //gps, article다 준비됐을 때 서버에 전송
-        //if (gpsReady && articleReady){ //gps, article다 준비됐을 때 서버에 전송
+        //if (gpsReady && articleReady){ //gps, article다 준비됐을 때 서버에 전송 //TODO : 살리기
             gpsReady = false
             articleReady = false
 
@@ -130,6 +130,11 @@ class OnePostFragment : Fragment() ,onBackPressedListener{
 
             //TODO : 서버 연결
             viewModel.posting(article)
+
+            //홈으로 고고
+//            val intent = Intent(requireContext(), HomeActivity::class.java)
+//            startActivity(intent)
+            activity?.finish()
         }
     }
 
